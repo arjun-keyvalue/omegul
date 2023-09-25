@@ -1,0 +1,19 @@
+{
+    "name": "arjun/omegul",
+    "require": {
+        "propel/propel": "~2.0@beta",
+        "chris-moreton/username-generator": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arjun\\Omegul\\": "src/"
+        },
+        "classmap": ["generated-classes/"]
+    },
+    "authors": [
+        {
+            "name": "arjun-keyvalue",
+            "email": "arjun.s@keyvalue.systems"
+        }
+    ]
+}

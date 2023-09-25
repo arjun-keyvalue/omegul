@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+  <table name="users" phpName="User">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="username" type="varchar" size="255" required="true" />
+    <column name="ip_address" type="varchar" size="15" required="true" />
+    <behavior name="timestampable" />
+  </table>
+  <table name="message" phpName="Message">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="content" type="varchar" size="255" required="true" />
+    <column name="user_id" type="integer" required="true" />
+    <foreign-key foreignTable="users">
+      <reference local="user_id" foreign="id" />
+    </foreign-key>
+    <behavior name="timestampable" />
+  </table>
+  <table name="secret" phpName="Secret">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="file_name" type="varchar" size="255" required="true" />
+    <column name="file_type" type="varchar" size="255" required="true" />
+    <column name="user_id" type="integer" required="true" />
+    <foreign-key foreignTable="users">
+      <reference local="user_id" foreign="id" />
+    </foreign-key>
+    <behavior name="timestampable" />
+  </table>
+</database>
