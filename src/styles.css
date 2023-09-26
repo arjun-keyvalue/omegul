@@ -89,6 +89,7 @@ input[type="file"] {
   /* file upload button hover state */
   input[type="file"]::file-selector-button:hover {
     background-color: #f3f4f6;
+    color: var(--primary-color-3); 
   }
   
   /* file upload button active state */
@@ -175,9 +176,12 @@ input[type="file"] {
 }
 
 .chat-messages {
+    display: flex;
+    flex-direction: column-reverse;
     overflow-y: scroll;
     padding-right: 10px;
     margin-right:  10px;
+    
 }
 
 .message {

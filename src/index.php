@@ -21,6 +21,8 @@ if ($user == null) {
 $messages_query = new MessageQuery();
 $messages_query = $messages_query->orderByCreatedAt();
 $messages = $messages_query->find();
+$arrayMessages = iterator_to_array($messages);
+$reversedMessages = array_reverse($arrayMessages);
 
 ?>
 
@@ -57,13 +59,13 @@ $messages = $messages_query->find();
       <div class="chat-right">
         <div class="chat-messages-container">
           <div class="chat-messages">
-            <?php foreach ($messages as $index =>
+            <?php foreach ($reversedMessages as $index =>
             $message): ?>
             <div
-              class="<?= ($index % 2 === 0) ? 'message-left' : 'message-right'?>"
+              class="<?= ($user->getId() != $message->getUserId()) ? 'message-left' : 'message-right'?>"
             >
               <div
-                class="message <?= ($index % 2 === 0) ? 'left-bubble' : 'right-bubble'?>"
+                class="message <?= ($user->getId() != $message->getUserId()) ? 'left-bubble' : 'right-bubble'?>"
               >
                 <div class="message-author">
                   <a href="user.php?id=<?= $message->getUserId() ?>">
@@ -71,7 +73,11 @@ $messages = $messages_query->find();
                   </a>
                 </div>
                 <div class="message-created-at">
-                  <?= $message->getCreatedAt()->format('H:i') ?>
+                <?php
+                  $originalTime = $message->getCreatedAt();
+                  $utcTime = $originalTime->setTimezone(new DateTimeZone('UTC'));
+                  echo $utcTime->format('H:i');
+                ?>
                 </div>
                 <div class="message-content"><?= $message->getContent() ?></div>
               </div>
