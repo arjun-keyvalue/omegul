@@ -70,9 +70,11 @@ $secrets = (new SecretQuery())->findByUserId($user->getId());
     <div class="sub-title">Your secrets</div>
       <?php foreach ($secrets as $secret): ?>
         <div class="secrets-secret">
-          <a href="uploads/<?= $secret->getId() . '.' . $secret->getFileType() ?>">
-            <?= $secret->getFileName() ?>
-          </a>
+          <div class="secrets-file-name">
+            <a href="uploads/<?= $secret->getId() . '.' . $secret->getFileType() ?>">
+              <?= $secret->getFileName() ?>
+            </a>
+          </div>
           <form class="secret-delete" method="post" action="delete_secret.php">
             <input type="hidden" name="user_id" class="user_id" value="<?= $user->getId() ?>">
             <input type="hidden" name="secret_id" class="secret_id" value="<?= $secret->getId() ?>">

@@ -37,38 +37,28 @@ input[type="file"] {
     width: 136px;
     color: transparent;
   }
-
-  input[type="submit"] {
-    width: 136px;
-    color:  var(--primary-color-1);
-    border-radius: 4px;
-    padding: 0 16px;
-    height: 40px;
-    cursor: pointer;
-    background-color: val(--primary-color-4);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
-    border: none;
-  }
   
   /* Faked label styles and icon */
   input[type="file"]::before {
     position: absolute;
     pointer-events: none;
     top: 10px;
-    left: 16px;
+    left: 10px;
     height: 20px;
     width: 20px;
     content: "";
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%231B202D'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
   }
-  
+
   input[type="file"]::after {
     position: absolute;
     pointer-events: none;
-    top: 11px;
-    left: 40px;
-    color: #1B202D;
-    content: "Upload File";
+    top: 13px;
+    font-size: 15px;
+    font-weight: 500;
+    left: 34px;
+    color: var(--primary-color-3);
+    content: "Choose File";
   }
   
   /* ------- From Step 1 ------- */
@@ -88,13 +78,26 @@ input[type="file"] {
   
   /* file upload button hover state */
   input[type="file"]::file-selector-button:hover {
-    background-color: #f3f4f6;
-    color: var(--primary-color-3); 
+    background-color: var(--primary-color-4);
   }
   
   /* file upload button active state */
   input[type="file"]::file-selector-button:active {
-    background-color: #e5e7eb;
+    background-color: var(--primary-color-4);
+  }
+
+  input[type="submit"] {
+    width: 136px;
+    color:  var(--primary-color-1);
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: val(--primary-color-4);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
   }
 
 .container {
@@ -367,6 +370,10 @@ input[type="file"] {
     margin-bottom: 10px;
     margin-top: 10px;
     font-size: 15px;
+}
+
+.secrets-file-name {
+    width: 340px;
 }
 
 .delete_secret {
