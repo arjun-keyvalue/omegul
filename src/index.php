@@ -48,9 +48,22 @@ $reversedMessages = array_reverse($arrayMessages);
         <div class="chat-menu">
           <div class="chat-header">
             <span class="title">Omegul</span>
+            <div class="menu-item selected-menu">
+              <div class="profile-circle"  ></div>
+              <div> General</div>
           </div>
-          <div class="left-menu">
-            <a class="menu-item" href="profile.php"
+          <div class="menu-item">
+              <div class="profile-circle"  ></div>
+              <div> Chat 1</div>
+          </div>
+          <div class="menu-item">
+              <div class="profile-circle"  ></div>
+              <div> Chat 2</div>
+          </div>
+          </div>
+          <div class="profile-button">
+            <img class="profile-icon" src="./assets/avathar.svg" alt="send">
+            <a href="profile.php"
               ><?= $user->getUsername() ?></a
             >
           </div>
@@ -101,7 +114,7 @@ $reversedMessages = array_reverse($arrayMessages);
               value="<?= $user->getId() ?>"
             />
             <button type="submit" name="send_message" class="send-button">
-              Send
+              <img class="send-icon" src="./assets/send.svg" alt="send">
             </button>
           </div>
         </form>
