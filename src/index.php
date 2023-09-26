@@ -37,7 +37,7 @@ $messages = $messages_query->find();
 <!-- Messages -->
 <div class="messages">
   <?php foreach ($messages as $message): ?>
-    <ul class="message">
+    <ul class="message" msg-owns="<?= ($user->getId() == $message->getUserId()) ? 'true' : 'false' ?>">
       <li class="message-author">
         <a href="user.php?id=<?= $message->getUserId() ?>">
           <?= $message->getUser()->getUsername() ?>
