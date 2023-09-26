@@ -24,40 +24,82 @@ $messages = $messages_query->find();
 
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<nav>
-  <h1>Omegul</h1>
-  <div class="nav-items">
-    <a href="/">Home</a>
-    <a href="profile.php">Profile</a>
-  </div>
-</nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omegul</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inclusive+Sans"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="chat-left">
+        <div class="chat-menu">
+          <div class="chat-header">
+            <span class="title">Omegul</span>
+          </div>
+          <div class="left-menu">
+            <a class="menu-item" href="profile.php"
+              ><?= $user->getUsername() ?></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="chat-right">
+        <div class="chat-messages-container">
+          <div class="chat-messages">
+            <?php foreach ($messages as $index =>
+            $message): ?>
+            <div
+              class="<?= ($index % 2 === 0) ? 'message-left' : 'message-right'?>"
+            >
+              <div
+                class="message <?= ($index % 2 === 0) ? 'left-bubble' : 'right-bubble'?>"
+              >
+                <div class="message-author">
+                  <a href="user.php?id=<?= $message->getUserId() ?>">
+                    <?= $message->getUser()->getUsername() ?>
+                  </a>
+                </div>
+                <div class="message-created-at">
+                  <?= $message->getCreatedAt()->format('H:i') ?>
+                </div>
+                <div class="message-content"><?= $message->getContent() ?></div>
+              </div>
+            </div>
 
-<!-- Messages -->
-<div class="messages">
-  <?php foreach ($messages as $message): ?>
-    <ul class="message">
-      <li class="message-author">
-        <a href="user.php?id=<?= $message->getUserId() ?>">
-          <?= $message->getUser()->getUsername() ?>
-        </a>
-      </li>
-      <li class="message-created-at">
-        <?= $message->getCreatedAt()->format('d.m.y H:i:s') ?>
-      </li>
-      <li class="message-content">
-        <?= $message->getContent() ?>
-      </li>
-    </ul>
-  <?php endforeach ?>
-</div>
-
-<!-- Form to send message -->
-<form class="send-message" method="post" action="send_message.php">
-  <textarea name="message" class="message" placeholder="type something..."></textarea>
-  <input type="hidden" name="user_id" class="user_id" value="<?= $user->getId() ?>">
-  <input type="submit" name="send_message" class="send_message" value="Send">
-</form>
-
+            <?php endforeach ?>
+          </div>
+        </div>
+        <form method="post" action="send_message.php">
+          <div class="chat-input">
+            <input
+              name="message"
+              type="text"
+              class="message-input"
+              placeholder="Type your message..."
+            />
+            <input
+              type="hidden"
+              name="user_id"
+              class="user_id"
+              value="<?= $user->getId() ?>"
+            />
+            <button type="submit" name="send_message" class="send-button">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
