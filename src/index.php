@@ -44,32 +44,16 @@ $reversedMessages = array_reverse($arrayMessages);
   </head>
   <body>
     <div class="container">
-      <div class="chat-left">
-        <div class="chat-menu">
-          <div class="chat-header">
-            <span class="title">Omegul</span>
-            <div class="menu-item selected-menu">
-              <div class="profile-circle"  ></div>
-              <div> General</div>
-          </div>
-          <div class="menu-item">
-              <div class="profile-circle"  ></div>
-              <div> Chat 1</div>
-          </div>
-          <div class="menu-item">
-              <div class="profile-circle"  ></div>
-              <div> Chat 2</div>
-          </div>
-          </div>
-          <div class="profile-button">
+      <div class="chat-nav">
+        <span class="title">Omegul</span>
+        <div class="profile-button">
             <img class="profile-icon" src="./assets/avathar.svg" alt="send">
             <a href="profile.php"
               ><?= $user->getUsername() ?></a
             >
-          </div>
         </div>
       </div>
-      <div class="chat-right">
+      <div class="chat-container">
         <div class="chat-messages-container">
           <div class="chat-messages">
             <?php foreach ($reversedMessages as $index =>

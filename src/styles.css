@@ -1,11 +1,11 @@
 /* styles.css */
 :root {
-    --primary-color-1: #292F3F;      
-    --primary-color-2: #7A8194;     
-    --primary-color-3: #1B202D;  
+    --primary-color-1: #175158	;    
+    --primary-color-2: #000000;    
+    --primary-color-3: rgba(0,0,0,0.3);  
     --primary-color-4: #ffffff;   
-    --primary-color-5: #373E4E;  
-    --primary-color-6: #6fba15;  
+    --primary-color-5: rgba(9, 32, 35,0.8); 
+    --primary-color-6: #373E4E;  
     --primary-color-7: #00bfff;    
 }
 
@@ -13,7 +13,7 @@ body {
     font-family: 'Inclusive Sans', 'Roboto',Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--primary-color-3);
+    background-color: var(--primary-color-5);
 }
 
 a {
@@ -22,7 +22,7 @@ a {
 }
 
 a:hover {
-    color: var(--primary-color-2); 
+    color: var(--primary-color-1); 
 }
 
 a:visited {
@@ -47,7 +47,7 @@ input[type="file"] {
     height: 20px;
     width: 20px;
     content: "";
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%231B202D'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+    background-color: var(--primary-color-1);
   }
 
   input[type="file"]::after {
@@ -57,11 +57,13 @@ input[type="file"] {
     font-size: 15px;
     font-weight: 500;
     left: 34px;
-    color: var(--primary-color-3);
+    color: var(--primary-color-1);
     content: "Choose File";
   }
   
-  /* ------- From Step 1 ------- */
+  input::placeholder {
+    color: var(--primary-color-4)
+}
   
   /* file upload button */
   input[type="file"]::file-selector-button {
@@ -103,14 +105,16 @@ input[type="file"] {
 .container {
     display: flex;
     height: 100vh;
-    flex-direction: row;
+    flex-direction: column;
     margin: 0 auto;
-    background-color: var(--primary-color-3);
+    width: 36%;
+    min-width: 500px;
+    background-image: url('https://i.pinimg.com/564x/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg');
     color: var(--primary-color-4);
 }
 
 .title {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 900;
     padding: 20px;
     font-family: 'Roboto',Arial, sans-serif;
@@ -124,14 +128,15 @@ input[type="file"] {
     font-family: 'Roboto',Arial, sans-serif;
     cursor: pointer;
     height: 60px;
-    font-size: 20px;
+    font-size: 15px;
+    margin-right: 20px;
 }
 
 .profile-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-    margin-bottom: 4px;
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+    margin-bottom: 2px;
 }
 
 .menu-item {
@@ -142,6 +147,7 @@ input[type="file"] {
     font-size: 16px;
     flex-direction: row;
     cursor: pointer;
+    padding-left: 14px;
 }
 
 .selected-menu {
@@ -156,29 +162,33 @@ input[type="file"] {
     margin-left: 10px;
     margin-right: 6px;
     overflow: hidden;
-    background-color: var(--primary-color-2);
+    background-color: var(--primary-color-4);
 }
 
 .menu-item:hover {
-    background-color: var(--primary-color-5);
+    background-color: var(--primary-color-3);
 }
 
 
-.chat-left {
+.chat-nav {
     display: flex;
-    width: 20%;
-    min-width: 300px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 10vh;
+    min-height: 60px;
+    margin: 20px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    background-color: var(--primary-color-1);
 }
 
 .chat-menu {
     width: 100%;
-    overflow: hidden;
     display: flex;
     justify-content: space-between;
     margin: 20px;
     flex-direction: column;
-    background-color: var(--primary-color-1);
-    border-radius: 10px;
     padding-bottom: 10px;
 }
 
@@ -188,38 +198,36 @@ input[type="file"] {
     padding-top: 30px;
 }
 
-.chat-right {
+.chat-container {
     display: flex;
-    width: 80%;
+    width: 100%;
     flex-direction: column;
     justify-content: space-between;
+    height: 90vh;
 }
 
 .chat-messages-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 10px;
     overflow-y: scroll;
-    padding: 0px;
-    padding-top: 20px;
-    padding-bottom: 10px;
+    padding: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .chat-messages {
     display: flex;
     flex-direction: column-reverse;
     overflow-y: scroll;
-    padding-right: 10px;
-    margin-right:  10px;
-    
+   
 }
 
 .message {
     display: inline;
     background-color: var(--primary-color-5);
     min-width: 100px;
-    max-width: 600px;
+    max-width: 400px;
     margin: 10px;
     border-radius: 15px;
     overflow: hidden;
@@ -230,12 +238,12 @@ input[type="file"] {
 
 .left-bubble {
     border-bottom-left-radius: 0px;
-    background-color: var(--primary-color-2);
+    background-color: var(--primary-color-6);
 }
 
 .right-bubble {
     border-bottom-right-radius: 0px;
-    background-color: var(--primary-color-5);
+    background-color: var(--primary-color-1);
 }
 
 .message-left {
@@ -272,24 +280,6 @@ input[type="file"] {
     font-size: 10px;
 }
 
-.message-author-right {
-    a {
-        color: var(--primary-color-7);
-    }
-}
-
-.message-author-right {
-    a {
-        color: var(--primary-color-6);
-    }
-    a:hover {
-        color: var(--primary-color-6); 
-    }
-    
-    a:visited {
-        color: var(--primary-color-6); 
-    }
-}
 
 .chat-input {
     display: flex;
@@ -298,12 +288,11 @@ input[type="file"] {
     padding: 10px;
     max-height: 60px;
     min-height: 40px;
-    background-color: var(--primary-color-1);
+    background-color: var(--primary-color-5);
     border-radius: 10px;
     overflow: hidden;
     margin: 20px;
-    margin-top: 0px;
-    margin-left: 0px;
+    margin-top: 5px;
 }
 
 .message-input {
@@ -314,7 +303,7 @@ input[type="file"] {
     outline: none; 
     margin-right: 10px;
     font-size: 16px;
-    background-color: var(--primary-color-1);
+    background-color: transparent;
 }
 
 .message-input:focus {
@@ -340,7 +329,7 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--primary-color-5);
+    background-color: var(--primary-color-1);
     width: 30%;
     margin: auto;
     min-width: 400px;
@@ -380,6 +369,7 @@ input[type="file"] {
     margin-left: 20px;
     width: 80px;
     height: 30px;
+    color: var(--primary-color-1);
 }
 
 .sub-title {
