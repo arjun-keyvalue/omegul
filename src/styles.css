@@ -38,29 +38,6 @@ input[type='file']::file-selector-button {
   color: transparent;
 }
 
-/* Faked label styles and icon */
-input[type='file']::before {
-  position: absolute;
-  pointer-events: none;
-  top: 10px;
-  left: 10px;
-  height: 20px;
-  width: 20px;
-  content: '';
-  background-color: var(--primary-color-1);
-}
-
-input[type='file']::after {
-  position: absolute;
-  pointer-events: none;
-  top: 13px;
-  font-size: 15px;
-  font-weight: 500;
-  left: 34px;
-  color: var(--primary-color-2);
-  content: 'Choose File';
-}
-
 input::placeholder {
   color: var(--primary-color-4);
 }
@@ -75,6 +52,8 @@ input[type='file']::file-selector-button {
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   margin-right: 16px;
   border: none;
+  color: var(--primary-color-1);
+  font-weight: 600;
   transition: background-color 200ms;
 }
 
