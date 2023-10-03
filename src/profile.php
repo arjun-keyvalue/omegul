@@ -19,20 +19,22 @@ $secrets = (new SecretQuery())->findByUserId($user->getId());
 
 <!DOCTYPE HTML>
 <html>
-
-<nav>
-  <h1>Omegul</h1>
-  <div class="nav-section">
-    <a href="/">Home</a>
-    <a href="profile.php">Profile</a>
-  </div>
-</nav>
-
-<div class="user">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omegul</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container profile-container">
+    <span class="title"><a href="/">Omegul</a></span>
+<div class="user-card">
   <p class="user-username">
-    Username:
     <?= $user->getUsername() ?>
   </p>
+  <div class="user-card-content">
   <p class="user-created-at">
     Joined on:
     <?= $user->getCreatedAt()->format('d.m.y H:i:s') ?>
@@ -51,37 +53,39 @@ $secrets = (new SecretQuery())->findByUserId($user->getId());
       <?= $message_count ?>
     </p>
   <?php endif ?>
-
+  <hr/>
+  </div>
   <div class="secrets">
-    <h3>Secrets</h3>
-    <h4>You can upload your secrets securely. Only txt, pdf, docx, jpg & png files are supported.</h4>
+    <div class="sub-title">Secrets</div>
+    <div class="para">You can upload your secrets securely. Only txt, pdf, docx, jpg & png files are supported.</div>
     <form class="secret-upload" method="post" enctype="multipart/form-data" action="upload_secret.php">
-      <label for="file">Choose a file:</label>
+      <div class="upload-buttons" >
       <input type="file" name="secret_file" class="secret_file">
       <input type="hidden" name="user_id" class="user_id" value="<?= $user->getId() ?>">
       <input type="submit" name="upload_secret" class="upload_secret" value="Upload">
-    </form>
   </div>
-
+    </form>
+<hr/>
   <?php if (count($secrets) > 0): ?>
-    <h4>Your secrets</h4>
-    <ul class="secrets-all">
+    <div class="sub-title">Your secrets</div>
       <?php foreach ($secrets as $secret): ?>
-        <li class="secrets-secret">
-          <a href="uploads/<?= $secret->getId() . '.' . $secret->getFileType() ?>">
-            <?= $secret->getFileName() ?>
-          </a>
+        <div class="secrets-secret">
+          <div class="secrets-file-name">
+            <a href="uploads/<?= $secret->getId() . '.' . $secret->getFileType() ?>">
+              <?= $secret->getFileName() ?>
+            </a>
+          </div>
           <form class="secret-delete" method="post" action="delete_secret.php">
             <input type="hidden" name="user_id" class="user_id" value="<?= $user->getId() ?>">
             <input type="hidden" name="secret_id" class="secret_id" value="<?= $secret->getId() ?>">
-            <input type="submit" name="delete_secret" class="delete_secret" value="Delete">
+            <button name="delete_secret" class="delete_secret">Delete</button>
           </form>
-        </li>
+      </div>
       <?php endforeach ?>
-    </ul>
   <?php endif ?>
+  </div>
 </div>
-
+      </div>
 <script>
   const secretUploadForm = document.querySelector('.secret-upload');
 

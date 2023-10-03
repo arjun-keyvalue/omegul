@@ -24,16 +24,19 @@ if (isset($user_id) && $user_id != NULL || !empty($user_id)) {
 
 <!DOCTYPE HTML>
 <html>
-<nav>
-  <h1>Omegul</h1>
-  <div class="nav-section">
-    <a href="/">Home</a>
-    <a href="profile.php">Profile</a>
-  </div>
-</nav>
-
-<div class="user">
-  <?php foreach ($users as $user): ?>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omegul</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container profile-container">
+    <span class="title"><a href="/">Omegul</a></span>
+<div class="user-card">
+<?php foreach ($users as $user): ?>
     <?php
     $dateString = $user['created_at'];
     $format = "Y-m-d H:i:s.u";
@@ -43,29 +46,29 @@ if (isset($user_id) && $user_id != NULL || !empty($user_id)) {
     $last_message = (new MessageQuery())->orderByCreatedAt(Criteria::DESC)->findOneByUserId($user['id']);
     $message_count = (new MessageQuery())->filterByUserId($user['id'])->count();
     ?>
-    <p class="user-username">
-      Username:
-      <?= $user['username'] ?>
+  <p class="user-username">
+  <?= $user['username'] ?>
+  </p>
+  <div class="user-card-content">
+  <p class="user-created-at">
+    Joined on:
+    <?= $user_created_at->format('d.m.y H:i:s') ?>
+  </p>
+  <?php if ($first_message != null): ?>
+    <p>
+      First message:
+      <?= $first_message->getCreatedAt()->format('d.m.y H:i:s') ?>
     </p>
-    <p class="user-created-at">
-      Joined on:
-      <?= $user_created_at->format('d.m.y H:i:s') ?>
+    <p>
+      Last message:
+      <?= $last_message->getCreatedAt()->format('d.m.y H:i:s') ?>
     </p>
-    <?php if ($first_message != null): ?>
-      <p>
-        First message:
-        <?= $first_message->getCreatedAt()->format('d.m.y H:i:s') ?>
-      </p>
-      <p>
-        Last message:
-        <?= $last_message->getCreatedAt()->format('d.m.y H:i:s') ?>
-      </p>
-      <p>
-        Total messages:
-        <?= $message_count ?>
-      </p>
-    <?php endif ?>
+    <p>
+      Total messages:
+      <?= $message_count ?>
+    </p>
+  <?php endif ?>
   <?php endforeach ?>
-</div>
+      </div>
 
 </html>
