@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS "secret" CASCADE;
 
 CREATE TABLE "secret"
 (
-    "id" serial NOT NULL,
+    "id" VARCHAR NOT NULL,
     "file_name" VARCHAR(255) NOT NULL,
     "file_type" VARCHAR(255) NOT NULL,
     "user_id" INTEGER NOT NULL,

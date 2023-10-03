@@ -211,10 +211,9 @@ class SecretTableMap extends TableMap
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\Secret');
         $this->setPackage('');
-        $this->setUseIdGenerator(true);
-        $this->setPrimaryKeyMethodInfo('secret_id_seq');
+        $this->setUseIdGenerator(false);
         // columns
-        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addPrimaryKey('id', 'Id', 'VARCHAR', true, null, null);
         $this->addColumn('file_name', 'FileName', 'VARCHAR', true, 255, null);
         $this->addColumn('file_type', 'FileType', 'VARCHAR', true, 255, null);
         $this->addForeignKey('user_id', 'UserId', 'INTEGER', 'users', 'id', true, null, null);
@@ -288,7 +287,7 @@ class SecretTableMap extends TableMap
      */
     public static function getPrimaryKeyFromRow(array $row, int $offset = 0, string $indexType = TableMap::TYPE_NUM)
     {
-        return (int) $row[
+        return (string) $row[
             $indexType == TableMap::TYPE_NUM
                 ? 0 + $offset
                 : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
@@ -523,10 +522,6 @@ class SecretTableMap extends TableMap
             $criteria = clone $criteria; // rename for clarity
         } else {
             $criteria = $criteria->buildCriteria(); // build Criteria from Secret object
-        }
-
-        if ($criteria->containsKey(SecretTableMap::COL_ID) && $criteria->keyContainsValue(SecretTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.SecretTableMap::COL_ID.')');
         }
 
 
