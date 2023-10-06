@@ -307,7 +307,7 @@ input[type='submit'] {
   min-width: 400px;
   max-height: 80vh;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: scroll;
   padding: 40px;
   padding-top: 20px;
 }
