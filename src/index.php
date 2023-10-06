@@ -21,43 +21,88 @@ if ($user == null) {
 $messages_query = new MessageQuery();
 $messages_query = $messages_query->orderByCreatedAt();
 $messages = $messages_query->find();
+$arrayMessages = iterator_to_array($messages);
+$reversedMessages = array_reverse($arrayMessages);
 
 ?>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<nav>
-  <h1>Omegul</h1>
-  <div class="nav-items">
-    <a href="/">Home</a>
-    <a href="profile.php">Profile</a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omegul</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="chat-left">
+      <div class="chat-menu">
+        <div class="chat-header">
+          <span class="title">Omegul</span>
+          <div class="menu-item selected-menu">
+            <div class="profile-circle"></div>
+            <div> General</div>
+          </div>
+          <div class="menu-item">
+            <div class="profile-circle"></div>
+            <div> Chat 1</div>
+          </div>
+          <div class="menu-item">
+            <div class="profile-circle"></div>
+            <div> Chat 2</div>
+          </div>
+        </div>
+        <div class="profile-button">
+          <img class="profile-icon" src="./assets/avathar.svg" alt="send">
+          <a href="profile.php">
+            <?= $user->getUsername() ?>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="chat-right">
+      <div class="chat-messages-container">
+        <div class="chat-messages">
+          <?php foreach ($reversedMessages as $index => $message): ?>
+            <div class="<?= ($user->getId() != $message->getUserId()) ? 'message-left' : 'message-right' ?>">
+              <div class="message <?= ($user->getId() != $message->getUserId()) ? 'left-bubble' : 'right-bubble' ?>">
+                <div class="message-author">
+                  <a href="user.php?id=<?= $message->getUserId() ?>">
+                    <?= $message->getUser()->getUsername() ?>
+                  </a>
+                </div>
+                <div class="message-created-at">
+                  <?php
+                  $originalTime = $message->getCreatedAt();
+                  $utcTime = $originalTime->setTimezone(new DateTimeZone('UTC'));
+                  echo $utcTime->format('H:i');
+                  ?>
+                </div>
+                <div class="message-content">
+                  <?= $message->getContent() ?>
+                </div>
+              </div>
+            </div>
+
+          <?php endforeach ?>
+        </div>
+      </div>
+      <form method="post" action="send_message.php">
+        <div class="chat-input">
+          <input name="message" type="text" class="message-input" placeholder="Type your message..." />
+          <input type="hidden" name="user_id" class="user_id" value="<?= $user->getId() ?>" />
+          <button type="submit" name="send_message" class="send-button">
+            <img class="send-icon" src="./assets/send.svg" alt="send">
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</nav>
-
-<!-- Messages -->
-<div class="messages">
-  <?php foreach ($messages as $message): ?>
-    <ul class="message" msg-owns="<?= ($user->getId() == $message->getUserId()) ? 'true' : 'false' ?>">
-      <li class="message-author">
-        <a href="user.php?id=<?= $message->getUserId() ?>">
-          <?= $message->getUser()->getUsername() ?>
-        </a>
-      </li>
-      <li class="message-created-at">
-        <?= $message->getCreatedAt()->format('d.m.y H:i:s') ?>
-      </li>
-      <li class="message-content">
-        <?= $message->getContent() ?>
-      </li>
-    </ul>
-  <?php endforeach ?>
-</div>
-
-<!-- Form to send message -->
-<form class="send-message" method="post" action="send_message.php">
-  <textarea name="message" class="message" placeholder="type something..."></textarea>
-  <input type="hidden" name="user_id" class="user_id" value="<?= $user->getId() ?>">
-  <input type="submit" name="send_message" class="send_message" value="Send">
-</form>
+</body>
 
 </html>

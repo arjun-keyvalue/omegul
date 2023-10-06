@@ -2,7 +2,8 @@
     "name": "arjun/omegul",
     "require": {
         "propel/propel": "~2.0@beta",
-        "chris-moreton/username-generator": "^1.0"
+        "chris-moreton/username-generator": "^1.0",
+        "ramsey/uuid": "^4.2"
     },
     "autoload": {
         "psr-4": {

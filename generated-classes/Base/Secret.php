@@ -68,7 +68,7 @@ abstract class Secret implements ActiveRecordInterface
     /**
      * The value for the id field.
      *
-     * @var        int
+     * @var        string
      */
     protected $id;
 
@@ -349,7 +349,7 @@ abstract class Secret implements ActiveRecordInterface
     /**
      * Get the [id] column value.
      *
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -433,13 +433,13 @@ abstract class Secret implements ActiveRecordInterface
     /**
      * Set the value of [id] column.
      *
-     * @param int $v New value
+     * @param string $v New value
      * @return $this The current object (for fluent API support)
      */
     public function setId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (string) $v;
         }
 
         if ($this->id !== $v) {
@@ -591,7 +591,7 @@ abstract class Secret implements ActiveRecordInterface
         try {
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : SecretTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->id = (null !== $col) ? (int) $col : null;
+            $this->id = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : SecretTableMap::translateFieldName('FileName', TableMap::TYPE_PHPNAME, $indexType)];
             $this->file_name = (null !== $col) ? (string) $col : null;
@@ -840,19 +840,6 @@ abstract class Secret implements ActiveRecordInterface
         $modifiedColumns = [];
         $index = 0;
 
-        $this->modifiedColumns[SecretTableMap::COL_ID] = true;
-        if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . SecretTableMap::COL_ID . ')');
-        }
-        if (null === $this->id) {
-            try {
-                $dataFetcher = $con->query("SELECT nextval('secret_id_seq')");
-                $this->id = (int) $dataFetcher->fetchColumn();
-            } catch (Exception $e) {
-                throw new PropelException('Unable to get sequence id.', 0, $e);
-            }
-        }
-
 
          // check the columns in natural order for more readable SQL queries
         if ($this->isColumnModified(SecretTableMap::COL_ID)) {
@@ -885,7 +872,7 @@ abstract class Secret implements ActiveRecordInterface
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
                     case 'id':
-                        $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
+                        $stmt->bindValue($identifier, $this->id, PDO::PARAM_STR);
 
                         break;
                     case 'file_name':
@@ -1250,7 +1237,7 @@ abstract class Secret implements ActiveRecordInterface
 
     /**
      * Returns the primary key for this object (row).
-     * @return int
+     * @return string
      */
     public function getPrimaryKey()
     {
@@ -1260,10 +1247,10 @@ abstract class Secret implements ActiveRecordInterface
     /**
      * Generic method to set the primary key (id column).
      *
-     * @param int|null $key Primary key.
+     * @param string|null $key Primary key.
      * @return void
      */
-    public function setPrimaryKey(?int $key = null): void
+    public function setPrimaryKey(?string $key = null): void
     {
         $this->setId($key);
     }
@@ -1292,6 +1279,7 @@ abstract class Secret implements ActiveRecordInterface
      */
     public function copyInto(object $copyObj, bool $deepCopy = false, bool $makeNew = true): void
     {
+        $copyObj->setId($this->getId());
         $copyObj->setFileName($this->getFileName());
         $copyObj->setFileType($this->getFileType());
         $copyObj->setUserId($this->getUserId());
@@ -1299,7 +1287,6 @@ abstract class Secret implements ActiveRecordInterface
         $copyObj->setUpdatedAt($this->getUpdatedAt());
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
         }
     }
 

@@ -56,7 +56,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildSecret|null findOne(?ConnectionInterface $con = null) Return the first ChildSecret matching the query
  * @method     ChildSecret findOneOrCreate(?ConnectionInterface $con = null) Return the first ChildSecret matching the query, or a new ChildSecret object populated from the query conditions when no match is found
  *
- * @method     ChildSecret|null findOneById(int $id) Return the first ChildSecret filtered by the id column
+ * @method     ChildSecret|null findOneById(string $id) Return the first ChildSecret filtered by the id column
  * @method     ChildSecret|null findOneByFileName(string $file_name) Return the first ChildSecret filtered by the file_name column
  * @method     ChildSecret|null findOneByFileType(string $file_type) Return the first ChildSecret filtered by the file_type column
  * @method     ChildSecret|null findOneByUserId(int $user_id) Return the first ChildSecret filtered by the user_id column
@@ -66,7 +66,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildSecret requirePk($key, ?ConnectionInterface $con = null) Return the ChildSecret by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildSecret requireOne(?ConnectionInterface $con = null) Return the first ChildSecret matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
- * @method     ChildSecret requireOneById(int $id) Return the first ChildSecret filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildSecret requireOneById(string $id) Return the first ChildSecret filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildSecret requireOneByFileName(string $file_name) Return the first ChildSecret filtered by the file_name column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildSecret requireOneByFileType(string $file_type) Return the first ChildSecret filtered by the file_type column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildSecret requireOneByUserId(int $user_id) Return the first ChildSecret filtered by the user_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -76,8 +76,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildSecret[]|Collection find(?ConnectionInterface $con = null) Return ChildSecret objects based on current ModelCriteria
  * @psalm-method Collection&\Traversable<ChildSecret> find(?ConnectionInterface $con = null) Return ChildSecret objects based on current ModelCriteria
  *
- * @method     ChildSecret[]|Collection findById(int|array<int> $id) Return ChildSecret objects filtered by the id column
- * @psalm-method Collection&\Traversable<ChildSecret> findById(int|array<int> $id) Return ChildSecret objects filtered by the id column
+ * @method     ChildSecret[]|Collection findById(string|array<string> $id) Return ChildSecret objects filtered by the id column
+ * @psalm-method Collection&\Traversable<ChildSecret> findById(string|array<string> $id) Return ChildSecret objects filtered by the id column
  * @method     ChildSecret[]|Collection findByFileName(string|array<string> $file_name) Return ChildSecret objects filtered by the file_name column
  * @psalm-method Collection&\Traversable<ChildSecret> findByFileName(string|array<string> $file_name) Return ChildSecret objects filtered by the file_name column
  * @method     ChildSecret[]|Collection findByFileType(string|array<string> $file_type) Return ChildSecret objects filtered by the file_type column
@@ -190,7 +190,7 @@ abstract class SecretQuery extends ModelCriteria
         $sql = 'SELECT id, file_name, file_type, user_id, created_at, updated_at FROM secret WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
-            $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
+            $stmt->bindValue(':p0', $key, PDO::PARAM_STR);
             $stmt->execute();
         } catch (Exception $e) {
             Propel::log($e->getMessage(), Propel::LOG_ERR);
@@ -286,35 +286,20 @@ abstract class SecretQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterById(1234); // WHERE id = 1234
-     * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
-     * $query->filterById(array('min' => 12)); // WHERE id > 12
+     * $query->filterById('fooValue');   // WHERE id = 'fooValue'
+     * $query->filterById('%fooValue%', Criteria::LIKE); // WHERE id LIKE '%fooValue%'
+     * $query->filterById(['foo', 'bar']); // WHERE id IN ('foo', 'bar')
      * </code>
      *
-     * @param mixed $id The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param string|string[] $id The value to use as filter.
      * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this The current query, for fluid interface
      */
     public function filterById($id = null, ?string $comparison = null)
     {
-        if (is_array($id)) {
-            $useMinMax = false;
-            if (isset($id['min'])) {
-                $this->addUsingAlias(SecretTableMap::COL_ID, $id['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($id['max'])) {
-                $this->addUsingAlias(SecretTableMap::COL_ID, $id['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($id)) {
                 $comparison = Criteria::IN;
             }
         }

@@ -1,0 +1,356 @@
+/* styles.css */
+:root {
+  --primary-color-1: #1f6f78;
+  --primary-color-2: #1f6f78;
+  --primary-color-3: rgba(0, 0, 0, 0.3);
+  --primary-color-4: #ffffff;
+  --primary-color-5: rgba(31, 111, 120, 0.8);
+  --primary-color-6: #373e4e;
+  --primary-color-7: #00bfff;
+}
+
+body {
+  font-family: 'Inclusive Sans', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-color-3);
+}
+
+a {
+  color: var(--primary-color-4);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color-2);
+}
+
+a:visited {
+  color: var(--primary-color-4);
+}
+
+input[type='file'] {
+  position: relative;
+}
+
+input[type='file']::file-selector-button {
+  width: 136px;
+  color: transparent;
+}
+
+input::placeholder {
+  color: var(--primary-color-4);
+}
+
+/* file upload button */
+input[type='file']::file-selector-button {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: val(--primary-color-4);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  border: none;
+  color: var(--primary-color-1);
+  font-weight: 600;
+  transition: background-color 200ms;
+}
+
+/* file upload button hover state */
+input[type='file']::file-selector-button:hover {
+  background-color: var(--primary-color-4);
+}
+
+/* file upload button active state */
+input[type='file']::file-selector-button:active {
+  background-color: var(--primary-color-4);
+}
+
+input[type='submit'] {
+  width: 136px;
+  color: var(--primary-color-1);
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: val(--primary-color-4);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  margin: 0 auto;
+  background-image: url('https://i.pinimg.com/564x/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg');
+  color: var(--primary-color-4);
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 900;
+  padding: 20px;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.profile-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', Arial, sans-serif;
+  cursor: pointer;
+  height: 60px;
+  font-size: 20px;
+}
+
+.profile-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+
+.menu-item {
+  display: flex;
+  height: 60px;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 16px;
+  flex-direction: row;
+  cursor: pointer;
+  padding-left: 14px;
+}
+
+.selected-menu {
+  margin-top: 30px;
+  background-color: var(--primary-color-5);
+}
+
+.profile-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin-left: 10px;
+  margin-right: 6px;
+  overflow: hidden;
+  background-color: var(--primary-color-4);
+}
+
+.menu-item:hover {
+  background-color: var(--primary-color-3);
+}
+
+.chat-left {
+  display: flex;
+  width: 20%;
+  min-width: 300px;
+}
+
+.chat-menu {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  flex-direction: column;
+  background-color: var(--primary-color-1);
+  border-radius: 10px;
+  padding-bottom: 10px;
+}
+
+.chat-header {
+  color: var(--primary-color-4);
+  text-align: center;
+  padding-top: 30px;
+}
+
+.chat-right {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat-messages-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10px;
+  overflow-y: scroll;
+  padding: 0px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+.message {
+  display: inline;
+  background-color: var(--primary-color-5);
+  min-width: 100px;
+  max-width: 600px;
+  margin: 10px;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 8px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.left-bubble {
+  border-bottom-left-radius: 0px;
+  background-color: var(--primary-color-6);
+}
+
+.right-bubble {
+  border-bottom-right-radius: 0px;
+  background-color: var(--primary-color-1);
+}
+
+.message-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-sender {
+  font-weight: bold;
+}
+
+.message-author {
+  font-weight: 600;
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+
+.message-content {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.message-created-at {
+  position: absolute;
+  z-index: 2;
+  bottom: 6px;
+  right: 8px;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.chat-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  max-height: 60px;
+  min-height: 40px;
+  background-color: var(--primary-color-1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.message-input {
+  flex: 1;
+  color: var(--primary-color-4);
+  padding: 5px;
+  border: none;
+  outline: none;
+  margin-right: 10px;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.message-input:focus {
+  border-bottom: none;
+}
+
+.send-button {
+  background-color: transparent;
+  border: none;
+  height: 44px;
+  cursor: pointer;
+}
+
+.send-icon {
+  height: 100%;
+  width: 100%;
+}
+
+.profile-container {
+  flex-direction: column;
+}
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--primary-color-2);
+  width: 30%;
+  margin: auto;
+  min-width: 400px;
+  max-height: 80vh;
+  border-radius: 8px;
+  overflow: scroll;
+  padding: 40px;
+  padding-top: 20px;
+}
+
+.user-username {
+  font-size: 25px;
+}
+.user-card-content {
+  width: 100%;
+}
+.upload-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.secrets-secret {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.secrets-file-name {
+  width: 340px;
+}
+
+.delete_secret {
+  margin-left: 20px;
+  width: 80px;
+  height: 30px;
+  color: var(--primary-color-2);
+}
+
+.sub-title {
+  font-size: 18px;
+  padding-top: 10px;
+}
+
+.para {
+  font-size: 15px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}

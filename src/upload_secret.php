@@ -1,4 +1,5 @@
 <?php
+use Ramsey\Uuid\Uuid;
 
 require_once '../index.php';
 
@@ -12,13 +13,16 @@ if (isset($secret_file) && $secret_file != NULL || !empty($secret_file)) {
   $file_type = $file_split[count($file_split) - 1];
 
   $secret = new Secret();
+  $uuid = Uuid::uuid4()->toString();
+
+  $secret->setId($uuid);
   $secret->setFileName($file_name);
   $secret->setFileType($file_type);
   $secret->setUserId($user_id);
   $secret->save();
 
   $targetDirectory = 'uploads/';
-  $targetFile = $targetDirectory . $secret->getId() . '.' . $file_type;
+  $targetFile = $targetDirectory . $uuid . '.' . $file_type;
 
   if (is_uploaded_file($tmp_name)) {
     move_uploaded_file($tmp_name, $targetFile);
